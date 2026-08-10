@@ -1,370 +1,136 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>중1 영단어 퀴즈</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>어휘 스탬프 투어 모음</title>
 <style>
-  :root {
-    color-scheme: light dark;
-    --bg: #f5f7fb;
-    --card: #ffffff;
-    --text: #1a1a1a;
-    --muted: #6b7280;
-    --primary: #4f46e5;
-    --primary-dark: #4338ca;
-    --correct: #16a34a;
-    --wrong: #dc2626;
-    --border: #e5e7eb;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #14161f;
-      --card: #1f2230;
-      --text: #f0f0f5;
-      --muted: #9ca3af;
-      --border: #333748;
-    }
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: "Apple SD Gothic Neo", "Malgun Gothic", -apple-system, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    padding: 24px 16px;
-  }
-  .app {
-    width: 100%;
-    max-width: 480px;
-  }
-  h1 {
-    font-size: 22px;
-    text-align: center;
-    margin: 8px 0 20px;
-  }
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  }
-  .progress {
-    display: flex;
-    justify-content: space-between;
-    color: var(--muted);
-    font-size: 14px;
-    margin-bottom: 12px;
-  }
-  .progress-bar {
-    height: 6px;
-    background: var(--border);
-    border-radius: 3px;
-    overflow: hidden;
-    margin-bottom: 24px;
-  }
-  .progress-bar-fill {
-    height: 100%;
-    background: var(--primary);
-    transition: width 0.25s ease;
-  }
-  .word {
-    font-size: 34px;
-    font-weight: 700;
-    text-align: center;
-    margin: 16px 0 28px;
-    word-break: break-word;
-  }
-  .options {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .option {
-    padding: 14px 16px;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    background: transparent;
-    color: var(--text);
-    font-size: 16px;
-    text-align: left;
-    cursor: pointer;
-    transition: background 0.15s, border-color 0.15s;
-  }
-  .option:hover:not(:disabled) {
-    border-color: var(--primary);
-  }
-  .option.correct {
-    border-color: var(--correct);
-    background: rgba(22,163,74,0.12);
-    font-weight: 600;
-  }
-  .option.wrong {
-    border-color: var(--wrong);
-    background: rgba(220,38,38,0.12);
-  }
-  .option:disabled {
-    cursor: default;
-  }
-  .next-btn, .primary-btn {
-    margin-top: 20px;
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 10px;
-    background: var(--primary);
-    color: #fff;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  .next-btn:hover, .primary-btn:hover { background: var(--primary-dark); }
-  .next-btn:disabled {
-    background: var(--border);
-    color: var(--muted);
-    cursor: default;
-  }
-  .result-score {
-    text-align: center;
-    font-size: 40px;
-    font-weight: 800;
-    margin: 12px 0 4px;
-  }
-  .result-sub {
-    text-align: center;
-    color: var(--muted);
-    margin-bottom: 20px;
-  }
-  .wrong-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    max-height: 320px;
-    overflow-y: auto;
-  }
-  .wrong-list li {
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 10px 14px;
-    font-size: 14px;
-  }
-  .wrong-list .en { font-weight: 700; }
-  .wrong-list .ko { color: var(--muted); }
-  .start-desc {
-    color: var(--muted);
-    text-align: center;
-    margin-bottom: 20px;
-    line-height: 1.5;
-  }
-  .count-select {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-  .count-select button {
-    padding: 8px 14px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text);
-    cursor: pointer;
-  }
-  .count-select button.active {
-    background: var(--primary);
-    border-color: var(--primary);
-    color: #fff;
-  }
+:root{
+  --ink:#10333F;
+  --ink-soft:#3A5C68;
+  --paper:#E9EFEC;
+  --card:#FBFCFB;
+  --seal:#C8452D;
+  --jade:#2F7A6B;
+  --gold:#D9A441;
+  --line:#C6D3CE;
+  --shadow:0 2px 0 rgba(16,51,63,.10);
+  --display:Georgia,'Times New Roman','Apple SD Gothic Neo',serif;
+  --body:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic','맑은 고딕',
+         'Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--paper); color:var(--ink); font-family:var(--body);
+  line-height:1.6; padding:clamp(16px,3vw,32px) clamp(14px,4vw,24px) 64px;
+  display:flex; justify-content:center;
+}
+.wrap{width:100%; max-width:960px}
+
+.eyebrow{
+  font-family:var(--display); font-size:13px; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--jade); font-weight:700;
+}
+h1{
+  font-family:var(--display); font-size:clamp(30px,6.5vw,48px); font-weight:700;
+  line-height:1.14; letter-spacing:-.01em; margin:6px 0 4px;
+}
+h1 .en{display:block; color:var(--seal); font-style:italic; font-size:.5em; letter-spacing:.01em; margin-top:4px}
+.sub{color:var(--ink-soft); font-size:15px; max-width:60ch}
+
+.grid{
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:16px; margin-top:34px;
+}
+.lesson{
+  background:var(--card); border:1.5px solid var(--line); border-radius:18px;
+  box-shadow:var(--shadow); padding:24px 22px; text-decoration:none; color:var(--ink);
+  display:flex; flex-direction:column; gap:10px;
+  transition:transform .15s, border-color .15s;
+  position:relative; overflow:hidden;
+}
+.lesson:hover{transform:translateY(-3px); border-color:var(--jade)}
+.lesson:hover .go{color:var(--jade)}
+.lnum{
+  font-family:var(--display); font-size:13px; letter-spacing:.15em;
+  color:var(--ink-soft); text-transform:uppercase;
+}
+.ltitle{font-family:var(--display); font-size:30px; font-weight:700}
+.lmeta{font-size:13px; color:var(--ink-soft)}
+.go{
+  margin-top:8px; font-size:14px; font-weight:700; color:var(--seal);
+  display:flex; align-items:center; gap:6px;
+}
+
+.lesson.soon{
+  cursor:default; opacity:.55; border-style:dashed;
+}
+.lesson.soon:hover{transform:none; border-color:var(--line)}
+.lesson.soon .go{color:var(--ink-soft)}
+
+footer{margin-top:44px; color:var(--ink-soft); font-size:13px; text-align:center}
 </style>
 </head>
 <body>
-<div class="app">
-  <h1>📚 중1 영단어 퀴즈</h1>
-  <div class="card" id="card"></div>
+<div class="wrap">
+
+  <p class="eyebrow">1학년 영어 · Vocabulary Stamp Tour</p>
+  <h1>어휘 스탬프 투어 모음<span class="en">Choose your lesson</span></h1>
+  <p class="sub">레슨을 선택하면 단어장 · 뜻 맞히기 · 철자 쓰기 세 가지 모드로 학습할 수 있어요. 스탬프 25개를 모두 모아 보세요.</p>
+
+  <div class="grid">
+    <a class="lesson" href="L01_어휘스탬프투어.html">
+      <span class="lnum">Lesson 01</span>
+      <span class="ltitle">L01</span>
+      <span class="lmeta">어휘 25개 · 3가지 모드</span>
+      <span class="go">시작하기 →</span>
+    </a>
+    <a class="lesson" href="L02_어휘스탬프투어.html">
+      <span class="lnum">Lesson 02</span>
+      <span class="ltitle">L02</span>
+      <span class="lmeta">어휘 25개 · 3가지 모드</span>
+      <span class="go">시작하기 →</span>
+    </a>
+    <a class="lesson" href="L03_어휘스탬프투어.html">
+      <span class="lnum">Lesson 03</span>
+      <span class="ltitle">L03</span>
+      <span class="lmeta">어휘 25개 · 3가지 모드</span>
+      <span class="go">시작하기 →</span>
+    </a>
+    <a class="lesson" href="L04_어휘스탬프투어.html">
+      <span class="lnum">Lesson 04</span>
+      <span class="ltitle">L04</span>
+      <span class="lmeta">어휘 25개 · 3가지 모드</span>
+      <span class="go">시작하기 →</span>
+    </a>
+    <a class="lesson" href="L05_어휘스탬프투어.html">
+      <span class="lnum">Lesson 05</span>
+      <span class="ltitle">L05</span>
+      <span class="lmeta">어휘 25개 · 3가지 모드</span>
+      <span class="go">시작하기 →</span>
+    </a>
+    <a class="lesson" href="L06_어휘스탬프투어.html">
+      <span class="lnum">Lesson 06</span>
+      <span class="ltitle">L06</span>
+      <span class="lmeta">어휘 25개 · 3가지 모드</span>
+      <span class="go">시작하기 →</span>
+    </a>
+    <a class="lesson" href="L07_어휘스탬프투어.html">
+      <span class="lnum">Lesson 07</span>
+      <span class="ltitle">L07</span>
+      <span class="lmeta">어휘 25개 · 3가지 모드</span>
+      <span class="go">시작하기 →</span>
+    </a>
+    <a class="lesson" href="L08_어휘스탬프투어.html">
+      <span class="lnum">Lesson 08</span>
+      <span class="ltitle">L08</span>
+      <span class="lmeta">어휘 25개 · 3가지 모드</span>
+      <span class="go">시작하기 →</span>
+    </a>
+  </div>
+
+  <footer>학습 기록은 화면을 닫으면 사라집니다. 한 번에 이어서 학습해 보세요.</footer>
 </div>
-
-<script>
-const WORDS = [
-  { en: "diary", ko: "일기" },
-  { en: "classmate", ko: "반 친구" },
-  { en: "uniform", ko: "교복" },
-  { en: "hallway", ko: "복도" },
-  { en: "cafeteria", ko: "구내식당" },
-  { en: "homework", ko: "숙제" },
-  { en: "subject", ko: "과목" },
-  { en: "exam", ko: "시험" },
-  { en: "holiday", ko: "휴일, 공휴일" },
-  { en: "vacation", ko: "방학" },
-  { en: "hobby", ko: "취미" },
-  { en: "exercise", ko: "운동, 연습" },
-  { en: "habit", ko: "습관" },
-  { en: "health", ko: "건강" },
-  { en: "weather", ko: "날씨" },
-  { en: "season", ko: "계절" },
-  { en: "spring", ko: "봄" },
-  { en: "summer", ko: "여름" },
-  { en: "fall", ko: "가을" },
-  { en: "winter", ko: "겨울" },
-  { en: "borrow", ko: "빌리다" },
-  { en: "lend", ko: "빌려주다" },
-  { en: "promise", ko: "약속하다" },
-  { en: "invite", ko: "초대하다" },
-  { en: "introduce", ko: "소개하다" },
-  { en: "prepare", ko: "준비하다" },
-  { en: "arrive", ko: "도착하다" },
-  { en: "decide", ko: "결정하다" },
-  { en: "imagine", ko: "상상하다" },
-  { en: "memory", ko: "기억, 추억" },
-  { en: "dream", ko: "꿈" },
-  { en: "future", ko: "미래" },
-  { en: "past", ko: "과거" },
-  { en: "present", ko: "현재, 선물" },
-  { en: "difficult", ko: "어려운" },
-  { en: "easy", ko: "쉬운" },
-  { en: "exciting", ko: "신나는" },
-  { en: "boring", ko: "지루한" },
-  { en: "comfortable", ko: "편안한" },
-  { en: "careful", ko: "조심스러운" },
-  { en: "curious", ko: "호기심 많은" },
-  { en: "brave", ko: "용감한" },
-  { en: "honest", ko: "정직한" },
-  { en: "polite", ko: "예의 바른" },
-  { en: "rude", ko: "무례한" },
-  { en: "kind", ko: "친절한" },
-  { en: "lazy", ko: "게으른" },
-  { en: "diligent", ko: "부지런한" },
-  { en: "friendly", ko: "다정한" },
-  { en: "similar", ko: "비슷한" },
-  { en: "different", ko: "다른" },
-  { en: "special", ko: "특별한" },
-  { en: "important", ko: "중요한" },
-  { en: "dangerous", ko: "위험한" },
-  { en: "expensive", ko: "비싼" },
-  { en: "delicious", ko: "맛있는" },
-];
-
-const QUIZ_LENGTH_OPTIONS = [10, 20, WORDS.length];
-let quizLength = 10;
-let questions = [];
-let currentIndex = 0;
-let score = 0;
-let wrongAnswers = [];
-
-const card = document.getElementById("card");
-
-function shuffle(arr) {
-  const a = arr.slice();
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
-function buildQuestion(word) {
-  const others = WORDS.filter(w => w.en !== word.en);
-  const distractors = shuffle(others).slice(0, 4).map(w => w.ko);
-  const options = shuffle([word.ko, ...distractors]);
-  return { word, options };
-}
-
-function renderStart() {
-  card.innerHTML = `
-    <p class="start-desc">단어를 보고 알맞은 뜻을 5개 보기 중에서 고르세요.</p>
-    <div class="count-select">
-      ${QUIZ_LENGTH_OPTIONS.map(n => `
-        <button data-n="${n}" class="${n === quizLength ? "active" : ""}">${n === WORDS.length ? "전체(" + n + ")" : n + "문제"}</button>
-      `).join("")}
-    </div>
-    <button class="primary-btn" id="startBtn">퀴즈 시작하기</button>
-  `;
-  card.querySelectorAll(".count-select button").forEach(btn => {
-    btn.addEventListener("click", () => {
-      quizLength = Number(btn.dataset.n);
-      renderStart();
-    });
-  });
-  document.getElementById("startBtn").addEventListener("click", startQuiz);
-}
-
-function startQuiz() {
-  const picked = shuffle(WORDS).slice(0, quizLength);
-  questions = picked.map(buildQuestion);
-  currentIndex = 0;
-  score = 0;
-  wrongAnswers = [];
-  renderQuestion();
-}
-
-function renderQuestion() {
-  const q = questions[currentIndex];
-  const pct = Math.round((currentIndex / questions.length) * 100);
-  card.innerHTML = `
-    <div class="progress">
-      <span>${currentIndex + 1} / ${questions.length}</span>
-      <span>점수 ${score}</span>
-    </div>
-    <div class="progress-bar"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
-    <div class="word">${q.word.en}</div>
-    <div class="options">
-      ${q.options.map(opt => `<button class="option" data-ko="${opt}">${opt}</button>`).join("")}
-    </div>
-    <button class="next-btn" id="nextBtn" disabled>다음</button>
-  `;
-
-  const optionButtons = card.querySelectorAll(".option");
-  optionButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const chosen = btn.dataset.ko;
-      const isCorrect = chosen === q.word.ko;
-      optionButtons.forEach(b => {
-        b.disabled = true;
-        if (b.dataset.ko === q.word.ko) b.classList.add("correct");
-        else if (b === btn) b.classList.add("wrong");
-      });
-      if (isCorrect) {
-        score++;
-      } else {
-        wrongAnswers.push(q.word);
-      }
-      document.getElementById("nextBtn").disabled = false;
-    });
-  });
-
-  document.getElementById("nextBtn").addEventListener("click", () => {
-    currentIndex++;
-    if (currentIndex < questions.length) {
-      renderQuestion();
-    } else {
-      renderResult();
-    }
-  });
-}
-
-function renderResult() {
-  const total = questions.length;
-  const pct = Math.round((score / total) * 100);
-  card.innerHTML = `
-    <div class="result-score">${score} / ${total}</div>
-    <div class="result-sub">정답률 ${pct}%</div>
-    ${wrongAnswers.length > 0 ? `
-      <ul class="wrong-list">
-        ${wrongAnswers.map(w => `<li><span class="en">${w.en}</span> — <span class="ko">${w.ko}</span></li>`).join("")}
-      </ul>
-    ` : `<p class="start-desc">🎉 전부 맞혔어요!</p>`}
-    <button class="primary-btn" id="restartBtn">다시 풀기</button>
-  `;
-  document.getElementById("restartBtn").addEventListener("click", renderStart);
-}
-
-renderStart();
-</script>
 </body>
 </html>
