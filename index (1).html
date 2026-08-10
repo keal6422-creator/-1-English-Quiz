@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>어휘 스탬프 투어 모음</title>
+<style>
+:root{
+  --ink:#10333F;
+  --ink-soft:#3A5C68;
+  --paper:#E9EFEC;
+  --card:#FBFCFB;
+  --seal:#C8452D;
+  --jade:#2F7A6B;
+  --gold:#D9A441;
+  --line:#C6D3CE;
+  --shadow:0 2px 0 rgba(16,51,63,.10);
+  --display:Georgia,'Times New Roman','Apple SD Gothic Neo',serif;
+  --body:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic','맑은 고딕',
+         'Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--paper); color:var(--ink); font-family:var(--body);
+  line-height:1.6; padding:clamp(16px,3vw,32px) clamp(14px,4vw,24px) 64px;
+  display:flex; justify-content:center;
+}
+.wrap{width:100%; max-width:960px}
+
+.eyebrow{
+  font-family:var(--display); font-size:13px; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--jade); font-weight:700;
+}
+h1{
+  font-family:var(--display); font-size:clamp(30px,6.5vw,48px); font-weight:700;
+  line-height:1.14; letter-spacing:-.01em; margin:6px 0 4px;
+}
+h1 .en{display:block; color:var(--seal); font-style:italic; font-size:.5em; letter-spacing:.01em; margin-top:4px}
+.sub{color:var(--ink-soft); font-size:15px; max-width:60ch}
+
+.grid{
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:16px; margin-top:34px;
+}
+.lesson{
+  background:var(--card); border:1.5px solid var(--line); border-radius:18px;
+  box-shadow:var(--shadow); padding:24px 22px; text-decoration:none; color:var(--ink);
+  display:flex; flex-direction:column; gap:10px;
+  transition:transform .15s, border-color .15s;
+  position:relative; overflow:hidden;
+}
+.lesson:hover{transform:translateY(-3px); border-color:var(--jade)}
+.lesson:hover .go{color:var(--jade)}
+.lnum{
+  font-family:var(--display); font-size:13px; letter-spacing:.15em;
+  color:var(--ink-soft); text-transform:uppercase;
+}
+.ltitle{font-family:var(--display); font-size:30px; font-weight:700}
+.lmeta{font-size:13px; color:var(--ink-soft)}
+.go{
+  margin-top:8px; font-size:14px; font-weight:700; color:var(--seal);
+  display:flex; align-items:center; gap:6px;
+}
+
+.lesson.soon{
+  cursor:default; opacity:.55; border-style:dashed;
+}
+.lesson.soon:hover{transform:none; border-color:var(--line)}
+.lesson.soon .go{color:var(--ink-soft)}
+
+footer{margin-top:44px; color:var(--ink-soft); font-size:13px; text-align:center}
+</style>
+</head>
+<body>
+<div id="gate" style="position:fixed;inset:0;z-index:9999;background:#E9EFEC;display:flex;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#FBFCFB;border:1.5px solid #C6D3CE;border-radius:18px;padding:40px 32px;max-width:360px;width:100%;text-align:center;font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic','맑은 고딕',sans-serif;box-shadow:0 2px 0 rgba(16,51,63,.10);">
+    <p style="font-family:Georgia,'Times New Roman','Apple SD Gothic Neo',serif;font-size:22px;font-weight:700;color:#10333F;margin-bottom:8px;">🔒 비밀번호 확인</p>
+    <p style="color:#3A5C68;font-size:14px;margin-bottom:20px;">선생님께 받은 비밀번호를 입력하세요.</p>
+    <input id="gate-pw" type="password" inputmode="numeric" autocomplete="off" placeholder="비밀번호" style="width:100%;padding:12px 14px;font-size:18px;text-align:center;border:1.5px solid #C6D3CE;border-radius:11px;background:#F2F6F4;color:#10333F;box-sizing:border-box;">
+    <button id="gate-btn" style="margin-top:14px;width:100%;padding:12px;font-size:16px;font-weight:600;background:#10333F;color:#fff;border:none;border-radius:11px;cursor:pointer;">확인</button>
+    <p id="gate-err" style="color:#C8452D;font-size:13px;margin-top:10px;min-height:18px;"></p>
+  </div>
+</div>
+<script>
+(function(){
+  var PW = "19450815";
+  var gate = document.getElementById('gate');
+  if (sessionStorage.getItem('stampGateOK') === '1') {
+    gate.remove();
+    return;
+  }
+  function tryUnlock(){
+    var v = document.getElementById('gate-pw').value.trim();
+    if (v === PW) {
+      sessionStorage.setItem('stampGateOK','1');
+      gate.remove();
+    } else {
+      document.getElementById('gate-err').textContent = '비밀번호가 올바르지 않아요.';
+      document.getElementById('gate-pw').value = '';
+      document.getElementById('gate-pw').focus();
+    }
+  }
+  document.getElementById('gate-btn').addEventListener('click', tryUnlock);
+  document.getElementById('gate-pw').addEventListener('keydown', function(e){ if(e.key==='Enter') tryUnlock(); });
+})();
+</script>
+
+<div class="wrap">
+
+  <p class="eyebrow">1학년 영어 · Vocabulary Stamp Tour</p>
+  <h1>어휘 스탬프 투어 모음<span class="en">Choose your lesson</span></h1>
+  <p class="sub">레슨을 선택하면 단어장 · 뜻 맞히기 · 철자 쓰기 세 가지 모드로 학습할 수 있어요. 스탬프 25개를 모두 모아 보세요.</p>
+
+  <div class="grid">
+    <a class="lesson" href="L01_어휘스탬프투어.html">
+      <span class="lnum">Lesson 01</span>
+      <span class="ltitle">L01</span>
+      <span class="lmeta">어휘 25개 · 3가지 모드</span>
+      <span class="go">시작하기 →</span>
+    </a>
+    <a class="lesson" href="L02_어휘스탬프투어.html">
+      <span class="lnum">Lesson 02</span>
+      <span class="ltitle">L02</span>
+      <span class="lmeta">어휘 25개 · 3가지 모드</span>
+      <span class="go">시작하기 →</span>
+    </a>
+    <a class="lesson" href="L03_어휘스탬프투어.html">
+      <span class="lnum">Lesson 03</span>
+      <span class="ltitle">L03</span>
+      <span class="lmeta">어휘 25개 · 3가지 모드</span>
+      <span class="go">시작하기 →</span>
+    </a>
+    <a class="lesson" href="L04_어휘스탬프투어.html">
+      <span class="lnum">Lesson 04</span>
+      <span class="ltitle">L04</span>
+      <span class="lmeta">어휘 25개 · 3가지 모드</span>
+      <span class="go">시작하기 →</span>
+    </a>
+    <a class="lesson" href="L05_어휘스탬프투어.html">
+      <span class="lnum">Lesson 05</span>
+      <span class="ltitle">L05</span>
+      <span class="lmeta">어휘 25개 · 3가지 모드</span>
+      <span class="go">시작하기 →</span>
+    </a>
+    <a class="lesson" href="L06_어휘스탬프투어.html">
+      <span class="lnum">Lesson 06</span>
+      <span class="ltitle">L06</span>
+      <span class="lmeta">어휘 25개 · 3가지 모드</span>
+      <span class="go">시작하기 →</span>
+    </a>
+    <a class="lesson" href="L07_어휘스탬프투어.html">
+      <span class="lnum">Lesson 07</span>
+      <span class="ltitle">L07</span>
+      <span class="lmeta">어휘 25개 · 3가지 모드</span>
+      <span class="go">시작하기 →</span>
+    </a>
+    <a class="lesson" href="L08_어휘스탬프투어.html">
+      <span class="lnum">Lesson 08</span>
+      <span class="ltitle">L08</span>
+      <span class="lmeta">어휘 25개 · 3가지 모드</span>
+      <span class="go">시작하기 →</span>
+    </a>
+  </div>
+
+  <footer>학습 기록은 화면을 닫으면 사라집니다. 한 번에 이어서 학습해 보세요.</footer>
+</div>
+</body>
+</html>
